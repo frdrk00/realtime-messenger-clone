@@ -16,7 +16,7 @@ interface MessageBoxProps {
 const MessageBox: FC<MessageBoxProps> = ({ data, isLast }) => {
   const session = useSession();
 
-  const isOwn = session?.data?.user?.email === data?.sender?.email;
+  const isOwn = session.data?.user?.email === data?.sender?.email;
   const seenList = (data.seen || [])
     .filter((user) => user.email !== data?.sender?.email)
     .map((user) => user.name)
@@ -62,7 +62,13 @@ const MessageBox: FC<MessageBoxProps> = ({ data, isLast }) => {
           )}
         </div>
         {isLast && isOwn && seenList.length > 0 && (
-          <div className="text-xs font-light text-gray-500">
+          <div
+            className="
+            text-xs 
+            font-light 
+            text-gray-500
+            "
+          >
             {`Seen by ${seenList}`}
           </div>
         )}

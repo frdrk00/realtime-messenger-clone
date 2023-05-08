@@ -47,25 +47,24 @@ export async function POST(
         }
 
         // Update seen of last message
-        const updateMessage = await prisma.message.update({
-            where: {
-                id: lastMessage.id
-            },
-            include: {
-                sender: true,
-                seen: true
-            },
-            data: {
-                seen: {
-                    connect: {
-                        id: currentUser.id
-                    }
-                }
+    const updatedMessage = await prisma.message.update({
+      where: {
+        id: lastMessage.id
+      },
+      include: {
+        sender: true,
+        seen: true,
+      },
+      data: {
+        seen: {
+          connect: {
+            id: currentUser.id
+          }
+        }
+      }
+    });
 
-            }
-        })
-
-        return NextResponse.json(updateMessage)
+        return NextResponse.json(updatedMessage)
     } catch (error) {
         console.log(error, 'ERROR_MESSAGES_SEEN');
         return new NextResponse('Internal Error', { status: 500})
